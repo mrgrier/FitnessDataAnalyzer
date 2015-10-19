@@ -2,7 +2,7 @@
 
 namespace FitnessDataAnalyzer.Data
 {
-   interface IDataPoint
+   public interface IDataPoint
    {
       DateTime Date { get; }
       double Calories { get; }
