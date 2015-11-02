@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Policy;
 using FitnessDataAnalyzer.Data;
 
 namespace FitnessDataAnalyzer.ViewModel
@@ -10,13 +9,16 @@ namespace FitnessDataAnalyzer.ViewModel
       public ProgressViewModel()
       {
          DataPoints = new Dictionary<DateTime, IDataPoint>();
+         Categories = new List<ICategory>();
       }
 
       public void AddDataPoint(IDataPoint point)
       {
-         DataPoints.Add(point.Date, point);
+         DataPoints[point.Date] = point;
       }
 
       public IDictionary<DateTime, IDataPoint> DataPoints { get; }
+
+      public IList<ICategory> Categories { get; }
    }
 }

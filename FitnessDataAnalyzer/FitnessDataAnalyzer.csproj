@@ -46,7 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Category.cs" />
     <Compile Include="Data\DataPoint.cs" />
+    <Compile Include="Data\DistanceSet.cs" />
+    <Compile Include="Data\DistanceUnits.cs" />
+    <Compile Include="Data\ICategory.cs" />
+    <Compile Include="Data\IDistanceSet.cs" />
+    <Compile Include="Data\IExercise.cs" />
+    <Compile Include="Data\IWeightedSet.cs" />
+    <Compile Include="Data\WeightedSet.cs" />
+    <Compile Include="ViewModel\IProgressViewModel.cs" />
+    <Compile Include="ViewModel\ProgressViewModel.cs" />
     <Compile Include="View\IProgressView.cs" />
     <Compile Include="View\ProgressView.cs">
       <SubType>Form</SubType>
@@ -68,6 +78,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\ProgressView.resx">
+      <DependentUpon>ProgressView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
