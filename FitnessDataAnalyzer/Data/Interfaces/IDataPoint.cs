@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FitnessDataAnalyzer.Data
+namespace FitnessDataAnalyzer.Data.Interfaces
 {
    public interface IDataPoint
    {

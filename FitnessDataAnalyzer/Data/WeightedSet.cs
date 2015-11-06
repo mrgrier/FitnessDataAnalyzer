@@ -1,24 +1,22 @@
 ﻿using System;
+using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.Data
 {
    public class WeightedSet : IWeightedSet
    {
-      public WeightedSet(string name, 
-                         ICategory category,
+      public WeightedSet(IExercise exercise,
                          DateTime date, 
                          double weight, 
                          int reps)
       {
-         Name = name;
-         Category = category;
+         Exercise = exercise;
          Date = date;
          Weight = weight;
          Reps = reps;
       }
-
-      public string Name { get; }
-      public ICategory Category { get; }
+      
+      public IExercise Exercise { get; }
       public DateTime Date { get; }
       public double Weight { get; }
       public int Reps { get; }

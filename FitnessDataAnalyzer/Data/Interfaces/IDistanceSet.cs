@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace FitnessDataAnalyzer.Data
+namespace FitnessDataAnalyzer.Data.Interfaces
 {
-   public interface IDistanceSet : IExercise
+   internal interface IDistanceSet : ISet
    {
       double Distance { get; }
       DistanceUnit Unit { get; }

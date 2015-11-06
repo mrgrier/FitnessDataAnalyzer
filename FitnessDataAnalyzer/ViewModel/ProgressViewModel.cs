@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FitnessDataAnalyzer.Data;
+using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.ViewModel
 {
@@ -10,15 +10,13 @@ namespace FitnessDataAnalyzer.ViewModel
       {
          DataPoints = new Dictionary<DateTime, IDataPoint>();
          Categories = new List<ICategory>();
+         Exercises = new Dictionary<ICategory, IExercise>();
       }
 
-      public void AddDataPoint(IDataPoint point)
-      {
-         DataPoints[point.Date] = point;
-      }
-
-      public IDictionary<DateTime, IDataPoint> DataPoints { get; }
+      public IDictionary<DateTime, IDataPoint> DataPoints { get; set; }
 
       public IList<ICategory> Categories { get; }
+
+      public IDictionary<ICategory, IExercise> Exercises { get; }
    }
 }

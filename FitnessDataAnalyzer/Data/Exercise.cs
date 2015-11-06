@@ -2,13 +2,15 @@
 
 namespace FitnessDataAnalyzer.Data
 {
-   public class Category : ICategory
+   public class Exercise : IExercise
    {
-      public Category(string name)
+      public Exercise(string name, ICategory category)
       {
          Name = name;
+         Category = category;
       }
 
       public string Name { get; }
+      public ICategory Category { get; }
    }
 }

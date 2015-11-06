@@ -1,4 +1,4 @@
-﻿namespace FitnessDataAnalyzer.Data
+﻿namespace FitnessDataAnalyzer.Data.Interfaces
 {
    public interface ICategory
    {

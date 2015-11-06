@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace FitnessDataAnalyzer.Data
+﻿namespace FitnessDataAnalyzer.Data.Interfaces
 {
    public interface IExercise
    {
       string Name { get; }
       ICategory Category { get; }
-      DateTime Date { get; }
    }
 }

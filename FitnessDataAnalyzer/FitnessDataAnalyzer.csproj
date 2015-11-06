@@ -33,8 +33,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NSubstitute, Version=1.9.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.1.9.2.0\lib\net45\NSubstitute.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,11 +75,14 @@
     <Compile Include="Data\DataPoint.cs" />
     <Compile Include="Data\DistanceSet.cs" />
     <Compile Include="Data\DistanceUnits.cs" />
-    <Compile Include="Data\ICategory.cs" />
-    <Compile Include="Data\IDistanceSet.cs" />
-    <Compile Include="Data\IExercise.cs" />
-    <Compile Include="Data\IWeightedSet.cs" />
+    <Compile Include="Data\Exercise.cs" />
+    <Compile Include="Data\Interfaces\ICategory.cs" />
+    <Compile Include="Data\Interfaces\IDistanceSet.cs" />
+    <Compile Include="Data\Interfaces\IExercise.cs" />
+    <Compile Include="Data\Interfaces\ISet.cs" />
+    <Compile Include="Data\Interfaces\IWeightedSet.cs" />
     <Compile Include="Data\WeightedSet.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="ViewModel\IProgressViewModel.cs" />
     <Compile Include="ViewModel\ProgressViewModel.cs" />
     <Compile Include="View\IProgressView.cs" />
@@ -64,7 +92,7 @@
     <Compile Include="View\ProgressView.Designer.cs">
       <DependentUpon>ProgressView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\IDataPoint.cs" />
+    <Compile Include="Data\Interfaces\IDataPoint.cs" />
     <Compile Include="Presenter\IProgressPresenter.cs" />
     <Compile Include="Presenter\ProgressPresenter.cs" />
     <Compile Include="Program.cs" />
@@ -81,6 +109,7 @@
     <EmbeddedResource Include="View\ProgressView.resx">
       <DependentUpon>ProgressView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,6 +123,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,5 @@
 ﻿using System;
+using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.Data
 {
