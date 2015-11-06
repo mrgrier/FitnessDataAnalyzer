@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FitnessDataAnalyzer.Data;
 using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.ViewModel
