@@ -31,6 +31,7 @@
          System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
          System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
          System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
          this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
          this.buttonTLP = new System.Windows.Forms.TableLayoutPanel();
          this.btnLoadWatchData = new System.Windows.Forms.Button();
@@ -112,9 +113,18 @@
          this.ExerciseChart.Location = new System.Drawing.Point(130, 36);
          this.ExerciseChart.Name = "ExerciseChart";
          series1.ChartArea = "ChartArea1";
+         series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
          series1.Legend = "Legend1";
-         series1.Name = "Series1";
+         series1.Name = "HighActivitySeries";
+         series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series2.ChartArea = "ChartArea1";
+         series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+         series2.Legend = "Legend1";
+         series2.Name = "LowActivitySeries";
+         series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          this.ExerciseChart.Series.Add(series1);
+         this.ExerciseChart.Series.Add(series2);
          this.ExerciseChart.Size = new System.Drawing.Size(451, 722);
          this.ExerciseChart.TabIndex = 3;
          this.ExerciseChart.Text = "chart1";

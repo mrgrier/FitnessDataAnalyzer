@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Disposables;
+using System.Windows.Forms;
 using FitnessDataAnalyzer.Data;
 using FitnessDataAnalyzer.Data.Interfaces;
-using FitnessDataAnalyzer.Helpers;
 using FitnessDataAnalyzer.View;
 using FitnessDataAnalyzer.ViewModel;
 
@@ -14,15 +17,102 @@ namespace FitnessDataAnalyzer.Presenter
       public ProgressPresenter(IProgressView view)
       {
          m_view = view;
-         m_viewModel = new ProgressViewModel();
+         m_viewModel = m_view.ViewModel = new ProgressViewModel();
+
+         m_lowHRThreshold = 70;
+         m_highHRThreshold = 110;
+
+         Subscribe();
       }
 
-      public void LoadDataPointsFromFile(string filePath)
+      private void Subscribe()
       {
-         m_viewModel.DataPoints = FileHelper.GetDataPointsFromFile(filePath);
+         m_subscriptions = new CompositeDisposable
+         {
+            m_view.GetLoadWatchDataClicks().Subscribe(LoadDataPointsFromFile),
+            m_view.GetLoadFitnotesDataClicks().Subscribe(LoadExerciseData)
+         };
       }
 
-      public void LoadExerciseData(string filePath)
+      private void LoadDataPointsFromFile(string filePath)
+      {
+         var stopwatch = Stopwatch.StartNew();
+         var numberOfPoints = 0;
+
+         m_viewModel.DataPoints.Clear();
+
+         try
+         {
+            using(var reader = new StreamReader(File.OpenRead(filePath)))
+            {
+               if(!reader.EndOfStream)
+                  reader.ReadLine(); // skip the first line.
+
+               while(!reader.EndOfStream)
+               {
+                  var line = reader.ReadLine();
+                  if(string.IsNullOrEmpty(line))
+                     continue;
+
+                  var values = line.Split(',');
+                  var point = CreateDataPoint(values);
+
+                  m_viewModel.DataPoints[point.Date] = point;
+                  AnalyzeDataPoint(point);
+
+                  numberOfPoints++;
+               }
+            }
+         }
+         catch(Exception e)
+         {
+            MessageBox.Show(e.Message, "Error reading file");
+         }
+
+         stopwatch.Stop();
+         MessageBox.Show($"{numberOfPoints} data points loaded in " +
+                         $"{stopwatch.ElapsedMilliseconds} milliseconds",
+                         "Loading Complete");
+
+         m_view.RefreshDataPoints();
+      }
+
+      private void AnalyzeDataPoint(IDataPoint point)
+      {
+         // if the user wasn't wearing it during this point's minute.
+         if(point.HeartRate <= 0)
+            return;
+
+         if(point.HeartRate < m_lowHRThreshold)
+            m_viewModel.LowActivityDataPoints[point.Date] = point;
+         else if(point.HeartRate > m_highHRThreshold)
+            m_viewModel.HighActivityDataPoints[point.Date] = point;
+      }
+
+      private static DataPoint CreateDataPoint(IReadOnlyList<string> values)
+      {
+         DateTime date;
+         DateTime.TryParse(values[0], out date);
+
+         double calories;
+         double.TryParse(values[1], out calories);
+
+         double perspiration;
+         double.TryParse(values[2], out perspiration);
+
+         double heartRate;
+         double.TryParse(values[3], out heartRate);
+
+         double skinTemp;
+         double.TryParse(values[4], out skinTemp);
+
+         int steps;
+         int.TryParse(values[5], out steps);
+
+         return new DataPoint(date, calories, perspiration, heartRate, skinTemp, steps);
+      }
+
+      private void LoadExerciseData(string filePath)
       {
          using(var reader = new StreamReader(File.OpenRead(filePath)))
          {
@@ -33,7 +123,7 @@ namespace FitnessDataAnalyzer.Presenter
                   continue;
 
                var values = line.Split(',');
-               
+
                // get or add category.
                var categoryName = values[2];
                var category = m_viewModel.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
@@ -54,7 +144,7 @@ namespace FitnessDataAnalyzer.Presenter
 
                var date = DateTime.Parse(values[0]);
 
-               if(!string.IsNullOrEmpty(values[5]) && 
+               if(!string.IsNullOrEmpty(values[5]) &&
                   !string.IsNullOrEmpty(values[6]) &&
                   !string.IsNullOrEmpty(values[7]))
                {
@@ -95,12 +185,15 @@ namespace FitnessDataAnalyzer.Presenter
             return DistanceUnit.Miles;
          if(unit.ToLower().Contains("ki"))
             return DistanceUnit.Kilometers;
-         
+
          // TODO: create a custom exception for this case.
          throw new Exception("Distance unit not recognized");
       }
 
       private readonly IProgressView m_view;
       private readonly IProgressViewModel m_viewModel;
+      private CompositeDisposable m_subscriptions;
+      private int m_lowHRThreshold;
+      private int m_highHRThreshold;
    }
 }

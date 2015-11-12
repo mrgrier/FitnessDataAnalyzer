@@ -82,7 +82,7 @@
     <Compile Include="Data\Interfaces\ISet.cs" />
     <Compile Include="Data\Interfaces\IWeightedSet.cs" />
     <Compile Include="Data\WeightedSet.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="ViewModel\IProgressViewModel.cs" />
     <Compile Include="ViewModel\ProgressViewModel.cs" />
     <Compile Include="View\IProgressView.cs" />
