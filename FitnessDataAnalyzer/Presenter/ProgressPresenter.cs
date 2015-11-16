@@ -54,8 +54,7 @@ namespace FitnessDataAnalyzer.Presenter
                   if(string.IsNullOrEmpty(line))
                      continue;
 
-                  var values = line.Split(',');
-                  var point = CreateDataPoint(values);
+                  var point = CreateDataPoint(line.Split(','));
 
                   m_viewModel.DataPoints[point.Date] = point;
                   AnalyzeDataPoint(point);
@@ -63,15 +62,18 @@ namespace FitnessDataAnalyzer.Presenter
                   numberOfPoints++;
                }
             }
+
+            stopwatch.Stop();
+            m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
+                                      $"{stopwatch.ElapsedMilliseconds} milliseconds");
          }
          catch(Exception e)
          {
-            MessageBox.Show(e.Message, "Error reading file");
+            stopwatch.Stop();
+            m_viewModel.DataPoints.Clear();
+            m_view.SetStatusStripText(FILE_READ_ERROR);
+            MessageBox.Show(e.Message, FILE_READ_ERROR);
          }
-
-         stopwatch.Stop();
-         m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
-                                   $"{stopwatch.ElapsedMilliseconds} milliseconds");
 
          m_view.RefreshDataPoints();
       }
@@ -192,7 +194,9 @@ namespace FitnessDataAnalyzer.Presenter
       private readonly IProgressView m_view;
       private readonly IProgressViewModel m_viewModel;
       private CompositeDisposable m_subscriptions;
-      private int m_lowHRThreshold;
-      private int m_highHRThreshold;
+      private readonly int m_lowHRThreshold;
+      private readonly int m_highHRThreshold;
+
+      private const string FILE_READ_ERROR = "Error reading file";
    }
 }
