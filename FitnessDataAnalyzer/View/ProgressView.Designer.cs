@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-         System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-         System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-         System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-         System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+         System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+         System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
          this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
          this.buttonTLP = new System.Windows.Forms.TableLayoutPanel();
          this.btnLoadWatchData = new System.Windows.Forms.Button();
          this.btnLoadFitnotesData = new System.Windows.Forms.Button();
          this.TreeView = new System.Windows.Forms.TreeView();
          this.ExerciseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+         this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+         this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
          this.mainTLP.SuspendLayout();
          this.buttonTLP.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).BeginInit();
+         this.statusStrip1.SuspendLayout();
          this.SuspendLayout();
          // 
          // mainTLP
@@ -58,7 +61,7 @@
          this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
          this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
          this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-         this.mainTLP.Size = new System.Drawing.Size(584, 761);
+         this.mainTLP.Size = new System.Drawing.Size(1484, 761);
          this.mainTLP.TabIndex = 0;
          // 
          // buttonTLP
@@ -74,7 +77,7 @@
          this.buttonTLP.Name = "buttonTLP";
          this.buttonTLP.RowCount = 1;
          this.buttonTLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-         this.buttonTLP.Size = new System.Drawing.Size(578, 27);
+         this.buttonTLP.Size = new System.Drawing.Size(1478, 27);
          this.buttonTLP.TabIndex = 1;
          // 
          // btnLoadWatchData
@@ -105,35 +108,51 @@
          // 
          // ExerciseChart
          // 
-         chartArea1.Name = "ChartArea1";
-         this.ExerciseChart.ChartAreas.Add(chartArea1);
+         chartArea4.Name = "ChartArea1";
+         this.ExerciseChart.ChartAreas.Add(chartArea4);
          this.ExerciseChart.Dock = System.Windows.Forms.DockStyle.Fill;
-         legend1.Name = "Legend1";
-         this.ExerciseChart.Legends.Add(legend1);
+         legend4.Name = "Legend1";
+         this.ExerciseChart.Legends.Add(legend4);
          this.ExerciseChart.Location = new System.Drawing.Point(130, 36);
          this.ExerciseChart.Name = "ExerciseChart";
-         series1.ChartArea = "ChartArea1";
-         series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-         series1.Legend = "Legend1";
-         series1.Name = "HighActivitySeries";
-         series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-         series2.ChartArea = "ChartArea1";
-         series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-         series2.Legend = "Legend1";
-         series2.Name = "LowActivitySeries";
-         series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-         series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-         this.ExerciseChart.Series.Add(series1);
-         this.ExerciseChart.Series.Add(series2);
-         this.ExerciseChart.Size = new System.Drawing.Size(451, 722);
+         series7.ChartArea = "ChartArea1";
+         series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+         series7.Legend = "Legend1";
+         series7.Name = "HighActivitySeries";
+         series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series8.ChartArea = "ChartArea1";
+         series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+         series8.Legend = "Legend1";
+         series8.Name = "LowActivitySeries";
+         series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series8.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+         this.ExerciseChart.Series.Add(series7);
+         this.ExerciseChart.Series.Add(series8);
+         this.ExerciseChart.Size = new System.Drawing.Size(1351, 722);
          this.ExerciseChart.TabIndex = 3;
          this.ExerciseChart.Text = "chart1";
+         // 
+         // statusStrip1
+         // 
+         this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+         this.statusStrip1.Location = new System.Drawing.Point(0, 739);
+         this.statusStrip1.Name = "statusStrip1";
+         this.statusStrip1.Size = new System.Drawing.Size(1484, 22);
+         this.statusStrip1.TabIndex = 1;
+         this.statusStrip1.Text = "statusStrip1";
+         // 
+         // toolStripStatusLabel1
+         // 
+         this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+         this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
          // 
          // ProgressView
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(584, 761);
+         this.ClientSize = new System.Drawing.Size(1484, 761);
+         this.Controls.Add(this.statusStrip1);
          this.Controls.Add(this.mainTLP);
          this.MinimumSize = new System.Drawing.Size(600, 800);
          this.Name = "ProgressView";
@@ -141,7 +160,10 @@
          this.mainTLP.ResumeLayout(false);
          this.buttonTLP.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).EndInit();
+         this.statusStrip1.ResumeLayout(false);
+         this.statusStrip1.PerformLayout();
          this.ResumeLayout(false);
+         this.PerformLayout();
 
         }
 
@@ -153,6 +175,8 @@
       private System.Windows.Forms.Button btnLoadFitnotesData;
       private System.Windows.Forms.TreeView TreeView;
       private System.Windows.Forms.DataVisualization.Charting.Chart ExerciseChart;
+      private System.Windows.Forms.StatusStrip statusStrip1;
+      private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
    }
 }
 

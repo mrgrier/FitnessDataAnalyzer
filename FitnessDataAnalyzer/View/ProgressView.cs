@@ -18,6 +18,12 @@ namespace FitnessDataAnalyzer.View
 
       public IProgressViewModel ViewModel { get; set; }
 
+      public void SetStatusStripText(string text)
+      {
+         toolStripStatusLabel1.Text = text;
+         statusStrip1.Refresh();
+      }
+
       public void RefreshDataPoints()
       {
          if(ViewModel == null)
@@ -28,9 +34,10 @@ namespace FitnessDataAnalyzer.View
          foreach(var point in ViewModel
                               .HighActivityDataPoints
                               .OrderBy(x => x.Key)
-                              .SkipEvery(GetSkipFactor(ViewModel.HighActivityDataPoints.Count)))
+                              .Select(kv => kv.Value)
+                              .Smooth(GetChunkSize(ViewModel.HighActivityDataPoints.Count)))
          {
-            ExerciseChart.Series[0].Points.AddXY(point.Key.ToOADate(), point.Value.HeartRate);
+            ExerciseChart.Series[0].Points.AddXY(point.Date.ToOADate(), point.HeartRate);
          }
 
          // plot low activity heart rate data.
@@ -38,9 +45,10 @@ namespace FitnessDataAnalyzer.View
          foreach(var point in ViewModel
                               .LowActivityDataPoints
                               .OrderBy(x => x.Key)
-                              .SkipEvery(GetSkipFactor(ViewModel.LowActivityDataPoints.Count)))
+                              .Select(kv => kv.Value)
+                              .Smooth(GetChunkSize(ViewModel.LowActivityDataPoints.Count)))
          {
-            ExerciseChart.Series[1].Points.AddXY(point.Key.ToOADate(), point.Value.HeartRate);
+            ExerciseChart.Series[1].Points.AddXY(point.Date.ToOADate(), point.HeartRate);
          }
       }
 
@@ -71,7 +79,7 @@ namespace FitnessDataAnalyzer.View
          }
       }
 
-      private static int GetSkipFactor(int dataPointCount)
+      private static int GetChunkSize(int dataPointCount)
       {
          return dataPointCount / DATA_POINT_MAX_COUNT;
       }

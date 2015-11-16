@@ -70,9 +70,8 @@ namespace FitnessDataAnalyzer.Presenter
          }
 
          stopwatch.Stop();
-         MessageBox.Show($"{numberOfPoints} data points loaded in " +
-                         $"{stopwatch.ElapsedMilliseconds} milliseconds",
-                         "Loading Complete");
+         m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
+                                   $"{stopwatch.ElapsedMilliseconds} milliseconds");
 
          m_view.RefreshDataPoints();
       }
