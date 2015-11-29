@@ -78,19 +78,7 @@ namespace FitnessDataAnalyzer.Presenter
          m_view.RefreshDataPoints();
       }
 
-      private void AnalyzeDataPoint(IDataPoint point)
-      {
-         // if the user wasn't wearing it during this point's minute.
-         if(point.HeartRate <= 0)
-            return;
-
-         if(point.HeartRate < m_lowHRThreshold)
-            m_viewModel.LowActivityDataPoints[point.Date] = point;
-         else if(point.HeartRate > m_highHRThreshold)
-            m_viewModel.HighActivityDataPoints[point.Date] = point;
-      }
-
-      private static DataPoint CreateDataPoint(IReadOnlyList<string> values)
+      private static IDataPoint CreateDataPoint(IReadOnlyList<string> values)
       {
          DateTime date;
          DateTime.TryParse(values[0], out date);
@@ -113,68 +101,134 @@ namespace FitnessDataAnalyzer.Presenter
          return new DataPoint(date, calories, perspiration, heartRate, skinTemp, steps);
       }
 
+      private void AnalyzeDataPoint(IDataPoint point)
+      {
+         // if the user wasn't wearing it during this point's minute.
+         if(point.HeartRate <= 0)
+            return;
+
+         if(point.HeartRate < m_lowHRThreshold)
+            m_viewModel.LowActivityDataPoints[point.Date] = point;
+         else if(point.HeartRate > m_highHRThreshold)
+            m_viewModel.HighActivityDataPoints[point.Date] = point;
+      }
+
       private void LoadExerciseData(string filePath)
       {
-         using(var reader = new StreamReader(File.OpenRead(filePath)))
+         var stopwatch = Stopwatch.StartNew();
+         var numberOfPoints = 0;
+
+         var treeNodes = new List<TreeNode>();
+
+         try
          {
-            while(!reader.EndOfStream)
+            using(var reader = new StreamReader(File.OpenRead(filePath)))
             {
-               var line = reader.ReadLine();
-               if(line == null)
-                  continue;
+               if(!reader.EndOfStream)
+                  reader.ReadLine(); // skip the first line.
 
-               var values = line.Split(',');
-
-               // get or add category.
-               var categoryName = values[2];
-               var category = m_viewModel.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
-               if(category == null)
+               while(!reader.EndOfStream)
                {
-                  category = new Category(categoryName);
-                  m_viewModel.Categories.Add(category);
+                  var line = reader.ReadLine();
+                  if(line == null)
+                     continue;
+
+                  var values = line.Split(',');
+
+                  ICategory category;
+                  if(!m_viewModel.Categories.TryGetValue(values[2], out category))
+                  {
+                     category = new Category(values[2]);
+                     m_viewModel.Categories[category.Name] = category;
+                     treeNodes.Add(new TreeNode(category.Name) { Tag = category });
+                  }
+
+                  IExercise exercise;
+                  if(!category.Exercises.TryGetValue(values[1], out exercise))
+                  {
+                     exercise = new Exercise(values[1], category);
+                     category.Exercises[exercise.Name] = exercise;
+
+                     var parentNode = treeNodes.Find(x => x.Text == category.Name);
+                     if(parentNode == null)
+                     {
+
+                        throw new Exception(
+                           $"could not find category parent node for exercise: {exercise.Name}");
+                     }
+
+                     parentNode.Nodes.Add(new TreeNode(exercise.Name) { Tag = exercise });
+                  }
+
+                  numberOfPoints++;
                }
-
-               // get or add exercise.
-               var exerciseName = values[1];
-               IExercise exercise;
-               if(!m_viewModel.Exercises.TryGetValue(category, out exercise))
-               {
-                  exercise = new Exercise(exerciseName, category);
-                  m_viewModel.Exercises[category] = exercise;
-               }
-
-               var date = DateTime.Parse(values[0]);
-
-               if(!string.IsNullOrEmpty(values[5]) &&
-                  !string.IsNullOrEmpty(values[6]) &&
-                  !string.IsNullOrEmpty(values[7]))
-               {
-                  // this is a distance exercise
-                  var distance = double.Parse(values[5]);
-                  var distanceUnit = ParseDistanceUnit(values[6]);
-                  var duration = TimeSpan.Parse(values[7]);
-
-                  var distanceSet = new DistanceSet(exercise, date, distance, distanceUnit, duration);
-
-                  // TODO: add to view model.
-                  continue;
-               }
-
-               if(!string.IsNullOrEmpty(values[3]) && !string.IsNullOrEmpty(values[4]))
-               {
-                  // this is a weighted exercise
-                  var weight = double.Parse(values[3]);
-                  var reps = int.Parse(values[4]);
-
-                  var weightedSet = new WeightedSet(exercise, date, weight, reps);
-
-                  // TODO: add to view model.
-                  continue;
-               }
-
-               throw new Exception("Entry did not match format for distance nor weighted exercise.");
             }
+
+            stopwatch.Stop();
+            m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
+                                      $"{stopwatch.ElapsedMilliseconds} milliseconds");
          }
+         catch(Exception e)
+         {
+            stopwatch.Stop();
+
+            m_viewModel.Categories.Clear();
+            treeNodes.Clear();
+
+            m_view.SetStatusStripText(FILE_READ_ERROR);
+            MessageBox.Show(e.Message, FILE_READ_ERROR);
+         }
+
+         m_view.BuildTree(treeNodes);
+      }
+
+      //private IExercise CreateExercise(IReadOnlyList<string> values)
+      //{
+      //   // get or add category.
+      //   var categoryName = values[2];
+      //   var category = GetCategory(categoryName);
+
+      //   // get or add exercise.
+      //   var exerciseName = values[1];
+      //   var exercise = GetExercise(category, exerciseName);
+
+      //   DateTime date;
+      //   DateTime.TryParse(values[0], out date);
+
+      //   if(!string.IsNullOrEmpty(values[5]) &&
+      //      !string.IsNullOrEmpty(values[6]) &&
+      //      !string.IsNullOrEmpty(values[7]))
+      //   {
+      //      // this is a distance exercise
+      //      var distance = double.Parse(values[5]);
+      //      var distanceUnit = ParseDistanceUnit(values[6]);
+      //      var duration = TimeSpan.Parse(values[7]);
+
+      //      var distanceSet = new DistanceSet(exercise, date, distance, distanceUnit, duration);
+
+      //      // TODO: add to view model.
+      //   }
+
+      //   else if(!string.IsNullOrEmpty(values[3]) && !string.IsNullOrEmpty(values[4]))
+      //   {
+      //      // this is a weighted exercise
+      //      var weight = double.Parse(values[3]);
+      //      var reps = int.Parse(values[4]);
+
+      //      var weightedSet = new WeightedSet(exercise, date, weight, reps);
+
+      //      // TODO: add to view model.
+      //   }
+
+      //   throw new Exception("Entry did not match format for distance nor weighted exercise.");
+      //}
+
+      private IExercise GetExercise(ICategory category, string exerciseName)
+      {
+         IExercise exercise;
+         return category.Exercises.TryGetValue(exerciseName, out exercise) ?
+                  exercise :
+                  new Exercise(exerciseName, category);
       }
 
       private DistanceUnit ParseDistanceUnit(string unit)

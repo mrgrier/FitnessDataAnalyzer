@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Forms;
@@ -49,6 +50,16 @@ namespace FitnessDataAnalyzer.View
                               .Smooth(GetChunkSize(ViewModel.LowActivityDataPoints.Count)))
          {
             ExerciseChart.Series[1].Points.AddXY(point.Date.ToOADate(), point.HeartRate);
+         }
+      }
+
+      public void BuildTree(IEnumerable<TreeNode> nodes)
+      {
+         TreeView.Nodes.Clear();
+
+         foreach(var node in nodes.OrderBy(x => x.Text))
+         {
+            TreeView.Nodes.Add(node);
          }
       }
 

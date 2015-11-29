@@ -12,8 +12,6 @@ namespace FitnessDataAnalyzer.ViewModel
 
       IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; }
 
-      IList<ICategory> Categories { get; }
-
-      IDictionary<ICategory, IExercise> Exercises { get; }
+      IDictionary<string, ICategory> Categories { get; }
    }
 }

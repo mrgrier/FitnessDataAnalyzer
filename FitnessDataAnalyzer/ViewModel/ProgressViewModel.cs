@@ -11,8 +11,7 @@ namespace FitnessDataAnalyzer.ViewModel
          DataPoints = new Dictionary<DateTime, IDataPoint>();
          LowActivityDataPoints = new Dictionary<DateTime, IDataPoint>();
          HighActivityDataPoints = new Dictionary<DateTime, IDataPoint>();
-         Categories = new List<ICategory>();
-         Exercises = new Dictionary<ICategory, IExercise>();
+         Categories = new Dictionary<string, ICategory>();
       }
 
       public IDictionary<DateTime, IDataPoint> DataPoints { get; }
@@ -21,8 +20,6 @@ namespace FitnessDataAnalyzer.ViewModel
 
       public IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; }
 
-      public IList<ICategory> Categories { get; }
-
-      public IDictionary<ICategory, IExercise> Exercises { get; }
+      public IDictionary<string, ICategory> Categories { get; }
    }
 }

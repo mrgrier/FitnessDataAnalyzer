@@ -1,4 +1,5 @@
-﻿using FitnessDataAnalyzer.Data.Interfaces;
+﻿using System.Collections.Generic;
+using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.Data
 {
@@ -7,8 +8,10 @@ namespace FitnessDataAnalyzer.Data
       public Category(string name)
       {
          Name = name;
+         Exercises = new Dictionary<string, IExercise>();
       }
 
       public string Name { get; }
+      public IDictionary<string, IExercise> Exercises { get; }
    }
 }
