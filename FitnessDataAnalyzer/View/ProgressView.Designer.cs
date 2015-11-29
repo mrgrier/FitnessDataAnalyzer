@@ -49,8 +49,8 @@
          // mainTLP
          // 
          this.mainTLP.ColumnCount = 2;
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
          this.mainTLP.Controls.Add(this.buttonTLP, 0, 0);
          this.mainTLP.Controls.Add(this.TreeView, 0, 1);
          this.mainTLP.Controls.Add(this.ExerciseChart, 1, 1);
@@ -102,7 +102,7 @@
          this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
          this.TreeView.Location = new System.Drawing.Point(3, 36);
          this.TreeView.Name = "TreeView";
-         this.TreeView.Size = new System.Drawing.Size(142, 722);
+         this.TreeView.Size = new System.Drawing.Size(216, 722);
          this.TreeView.TabIndex = 2;
          // 
          // ExerciseChart
@@ -112,7 +112,7 @@
          this.ExerciseChart.Dock = System.Windows.Forms.DockStyle.Fill;
          legend1.Name = "Legend1";
          this.ExerciseChart.Legends.Add(legend1);
-         this.ExerciseChart.Location = new System.Drawing.Point(151, 36);
+         this.ExerciseChart.Location = new System.Drawing.Point(225, 36);
          this.ExerciseChart.Name = "ExerciseChart";
          series1.ChartArea = "ChartArea1";
          series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -127,7 +127,7 @@
          series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          this.ExerciseChart.Series.Add(series1);
          this.ExerciseChart.Series.Add(series2);
-         this.ExerciseChart.Size = new System.Drawing.Size(1330, 722);
+         this.ExerciseChart.Size = new System.Drawing.Size(1256, 722);
          this.ExerciseChart.TabIndex = 3;
          this.ExerciseChart.Text = "chart1";
          // 
