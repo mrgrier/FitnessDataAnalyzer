@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-         System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-         System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-         System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-         System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+         System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+         System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
          this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
          this.buttonTLP = new System.Windows.Forms.TableLayoutPanel();
          this.btnLoadWatchData = new System.Windows.Forms.Button();
@@ -49,8 +49,8 @@
          // mainTLP
          // 
          this.mainTLP.ColumnCount = 2;
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
          this.mainTLP.Controls.Add(this.buttonTLP, 0, 0);
          this.mainTLP.Controls.Add(this.TreeView, 0, 1);
          this.mainTLP.Controls.Add(this.ExerciseChart, 1, 1);
@@ -60,7 +60,6 @@
          this.mainTLP.RowCount = 2;
          this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
          this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle());
-         this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
          this.mainTLP.Size = new System.Drawing.Size(1484, 761);
          this.mainTLP.TabIndex = 0;
          // 
@@ -103,32 +102,32 @@
          this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
          this.TreeView.Location = new System.Drawing.Point(3, 36);
          this.TreeView.Name = "TreeView";
-         this.TreeView.Size = new System.Drawing.Size(121, 722);
+         this.TreeView.Size = new System.Drawing.Size(142, 722);
          this.TreeView.TabIndex = 2;
          // 
          // ExerciseChart
          // 
-         chartArea4.Name = "ChartArea1";
-         this.ExerciseChart.ChartAreas.Add(chartArea4);
+         chartArea1.Name = "ChartArea1";
+         this.ExerciseChart.ChartAreas.Add(chartArea1);
          this.ExerciseChart.Dock = System.Windows.Forms.DockStyle.Fill;
-         legend4.Name = "Legend1";
-         this.ExerciseChart.Legends.Add(legend4);
-         this.ExerciseChart.Location = new System.Drawing.Point(130, 36);
+         legend1.Name = "Legend1";
+         this.ExerciseChart.Legends.Add(legend1);
+         this.ExerciseChart.Location = new System.Drawing.Point(151, 36);
          this.ExerciseChart.Name = "ExerciseChart";
-         series7.ChartArea = "ChartArea1";
-         series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-         series7.Legend = "Legend1";
-         series7.Name = "HighActivitySeries";
-         series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-         series8.ChartArea = "ChartArea1";
-         series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-         series8.Legend = "Legend1";
-         series8.Name = "LowActivitySeries";
-         series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-         series8.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-         this.ExerciseChart.Series.Add(series7);
-         this.ExerciseChart.Series.Add(series8);
-         this.ExerciseChart.Size = new System.Drawing.Size(1351, 722);
+         series1.ChartArea = "ChartArea1";
+         series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+         series1.Legend = "Legend1";
+         series1.Name = "HighActivitySeries";
+         series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series2.ChartArea = "ChartArea1";
+         series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+         series2.Legend = "Legend1";
+         series2.Name = "LowActivitySeries";
+         series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+         this.ExerciseChart.Series.Add(series1);
+         this.ExerciseChart.Series.Add(series2);
+         this.ExerciseChart.Size = new System.Drawing.Size(1330, 722);
          this.ExerciseChart.TabIndex = 3;
          this.ExerciseChart.Text = "chart1";
          // 

@@ -152,7 +152,6 @@ namespace FitnessDataAnalyzer.Presenter
                      var parentNode = treeNodes.Find(x => x.Text == category.Name);
                      if(parentNode == null)
                      {
-
                         throw new Exception(
                            $"could not find category parent node for exercise: {exercise.Name}");
                      }
