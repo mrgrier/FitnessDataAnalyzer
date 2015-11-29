@@ -26,14 +26,20 @@ namespace FitnessDataAnalyzer.Presenter
 
       private void Subscribe()
       {
+         if(m_subscriptions != null && !m_subscriptions.IsDisposed)
+         {
+            m_subscriptions.Dispose();
+         }
+
          m_subscriptions = new CompositeDisposable
          {
-            m_view.GetLoadWatchDataClicks().Subscribe(LoadDataPointsFromFile),
-            m_view.GetLoadFitnotesDataClicks().Subscribe(LoadExerciseData)
+            m_view.GetLoadWatchDataClicks().Subscribe(LoadWatchData),
+            m_view.GetLoadFitnotesDataClicks().Subscribe(LoadExerciseData),
+            m_view.GetTreeNodeSelectionChanges().Subscribe(HandleNodeSelection)
          };
       }
 
-      private void LoadDataPointsFromFile(string filePath)
+      private void LoadWatchData(string filePath)
       {
          var stopwatch = Stopwatch.StartNew();
          var numberOfPoints = 0;
@@ -65,6 +71,8 @@ namespace FitnessDataAnalyzer.Presenter
             stopwatch.Stop();
             m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
                                       $"{stopwatch.ElapsedMilliseconds} milliseconds");
+
+            m_viewModel.WatchDataNotYetLoaded = false;
          }
          catch(Exception e)
          {
@@ -141,6 +149,8 @@ namespace FitnessDataAnalyzer.Presenter
             stopwatch.Stop();
             m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
                                       $"{stopwatch.ElapsedMilliseconds} milliseconds");
+
+            m_viewModel.SetDataNotYetLoaded = false;
          }
          catch(Exception e)
          {
@@ -222,6 +232,11 @@ namespace FitnessDataAnalyzer.Presenter
             return DistanceUnit.Kilometers;
 
          throw new Exception("Distance unit not recognized");
+      }
+
+      private void HandleNodeSelection(TreeNode node)
+      {
+         //throw new NotImplementedException();
       }
 
       private readonly IProgressView m_view;

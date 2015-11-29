@@ -17,7 +17,15 @@ namespace FitnessDataAnalyzer.View
          m_presenter = new ProgressPresenter(this);
       }
 
-      public IProgressViewModel ViewModel { get; set; }
+      public IProgressViewModel ViewModel
+      {
+         get { return m_viewModel; }
+         set
+         {
+            m_viewModel = value;
+            ViewModelBindingSource.DataSource = value;
+         }
+      }
 
       public void SetStatusStripText(string text)
       {
@@ -81,6 +89,15 @@ namespace FitnessDataAnalyzer.View
             .Where(x => x != null);
       }
 
+      public IObservable<TreeNode> GetTreeNodeSelectionChanges()
+      {
+         return Observable.FromEventPattern<TreeViewEventHandler, TreeViewEventArgs>(
+            evt => TreeView.AfterSelect += evt,
+            evt => TreeView.AfterSelect -= evt)
+            .Select(e => e.EventArgs.Node)
+            .Where(x => x != null);
+      }
+
       private string GetFilePath()
       {
          using(var dialog = new OpenFileDialog())
@@ -96,6 +113,7 @@ namespace FitnessDataAnalyzer.View
       }
 
       private readonly IProgressPresenter m_presenter;
+      private IProgressViewModel m_viewModel;
 
       private const string CSV_FILTER = "Comma Separated Values | *.csv";
       private const int DATA_POINT_MAX_COUNT = 20;

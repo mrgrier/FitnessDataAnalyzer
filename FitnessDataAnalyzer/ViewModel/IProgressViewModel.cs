@@ -13,5 +13,9 @@ namespace FitnessDataAnalyzer.ViewModel
       IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; }
 
       IDictionary<string, ICategory> Categories { get; }
+
+      bool WatchDataNotYetLoaded { get; set; }
+
+      bool SetDataNotYetLoaded { get; set; }
    }
 }

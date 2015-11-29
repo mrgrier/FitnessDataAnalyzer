@@ -13,5 +13,6 @@ namespace FitnessDataAnalyzer.View
       void BuildTree(IEnumerable<TreeNode> nodes);
       IObservable<string> GetLoadWatchDataClicks();
       IObservable<string> GetLoadFitnotesDataClicks();
+      IObservable<TreeNode> GetTreeNodeSelectionChanges();
    }
 }

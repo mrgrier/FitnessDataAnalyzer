@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+         this.components = new System.ComponentModel.Container();
          System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
          System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
          System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -40,10 +41,12 @@
          this.ExerciseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+         this.ViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.mainTLP.SuspendLayout();
          this.buttonTLP.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).BeginInit();
          this.statusStrip1.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.ViewModelBindingSource)).BeginInit();
          this.SuspendLayout();
          // 
          // mainTLP
@@ -81,6 +84,7 @@
          // 
          // btnLoadWatchData
          // 
+         this.btnLoadWatchData.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.ViewModelBindingSource, "WatchDataNotYetLoaded", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.btnLoadWatchData.Location = new System.Drawing.Point(3, 3);
          this.btnLoadWatchData.Name = "btnLoadWatchData";
          this.btnLoadWatchData.Size = new System.Drawing.Size(120, 23);
@@ -90,6 +94,7 @@
          // 
          // btnLoadFitnotesData
          // 
+         this.btnLoadFitnotesData.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.ViewModelBindingSource, "SetDataNotYetLoaded", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.btnLoadFitnotesData.Location = new System.Drawing.Point(129, 3);
          this.btnLoadFitnotesData.Name = "btnLoadFitnotesData";
          this.btnLoadFitnotesData.Size = new System.Drawing.Size(120, 23);
@@ -146,6 +151,10 @@
          this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
          // 
+         // ViewModelBindingSource
+         // 
+         this.ViewModelBindingSource.DataSource = typeof(FitnessDataAnalyzer.ViewModel.IProgressViewModel);
+         // 
          // ProgressView
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,6 +170,7 @@
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).EndInit();
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.ViewModelBindingSource)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -176,6 +186,7 @@
       private System.Windows.Forms.DataVisualization.Charting.Chart ExerciseChart;
       private System.Windows.Forms.StatusStrip statusStrip1;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+      private System.Windows.Forms.BindingSource ViewModelBindingSource;
    }
 }
 
