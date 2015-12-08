@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Forms;
+using FitnessDataAnalyzer.Data.Interfaces;
 using FitnessDataAnalyzer.Extensions;
 using FitnessDataAnalyzer.Presenter;
 using FitnessDataAnalyzer.ViewModel;
@@ -33,15 +35,28 @@ namespace FitnessDataAnalyzer.View
          statusStrip1.Refresh();
       }
 
-      public void RefreshDataPoints()
+      public void Clear()
       {
-         if(ViewModel == null)
+         TreeView.Nodes.Clear();
+         TreeView.Refresh();
+         
+         foreach(var series in ExerciseChart.Series)
+         {
+            series.Points.Clear();
+         }
+
+         ExerciseChart.Refresh();
+      }
+
+      public void PlotDataPoints(IDictionary<DateTime, IDataPoint> highActivityDataPoints,
+                                 IDictionary<DateTime, IDataPoint> lowActivityDataPoints)
+      {
+         if(highActivityDataPoints == null || lowActivityDataPoints == null)
             return;
 
          // plot high activity heart rate data.
          ExerciseChart.Series[0].Points.Clear();
-         foreach(var point in ViewModel
-                              .HighActivityDataPoints
+         foreach(var point in highActivityDataPoints
                               .OrderBy(x => x.Key)
                               .Select(kv => kv.Value)
                               .Smooth(GetChunkSize(ViewModel.HighActivityDataPoints.Count)))
@@ -51,8 +66,7 @@ namespace FitnessDataAnalyzer.View
 
          // plot low activity heart rate data.
          ExerciseChart.Series[1].Points.Clear();
-         foreach(var point in ViewModel
-                              .LowActivityDataPoints
+         foreach(var point in lowActivityDataPoints
                               .OrderBy(x => x.Key)
                               .Select(kv => kv.Value)
                               .Smooth(GetChunkSize(ViewModel.LowActivityDataPoints.Count)))
@@ -87,6 +101,14 @@ namespace FitnessDataAnalyzer.View
             evt => btnLoadFitnotesData.Click -= evt)
             .Select(_ => GetFilePath())
             .Where(x => x != null);
+      }
+
+      public IObservable<Unit> GetClearLoadedDataClicks()
+      {
+         return Observable.FromEventPattern(
+            evt => ClearButton.Click += evt,
+            evt => ClearButton.Click -= evt)
+            .Select(_ => Unit.Default);
       }
 
       public IObservable<TreeNode> GetTreeNodeSelectionChanges()

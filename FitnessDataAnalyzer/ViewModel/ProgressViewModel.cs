@@ -20,13 +20,13 @@ namespace FitnessDataAnalyzer.ViewModel
          m_setDataLoaded = true;
       }
 
-      public IDictionary<DateTime, IDataPoint> DataPoints { get; }
+      public IDictionary<DateTime, IDataPoint> DataPoints { get; private set; }
 
-      public IDictionary<DateTime, IDataPoint> LowActivityDataPoints { get; }
+      public IDictionary<DateTime, IDataPoint> LowActivityDataPoints { get; private set; }
 
-      public IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; }
+      public IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; private set; }
 
-      public IDictionary<string, ICategory> Categories { get; }
+      public IDictionary<string, ICategory> Categories { get; private set; }
 
       public bool WatchDataNotYetLoaded
       {
@@ -50,6 +50,16 @@ namespace FitnessDataAnalyzer.ViewModel
             m_setDataLoaded = value;
             OnPropertyChanged();
          }
+      }
+
+      public void Clear()
+      {
+         DataPoints.Clear();
+         LowActivityDataPoints.Clear();
+         HighActivityDataPoints.Clear();
+         Categories.Clear();
+
+         WatchDataNotYetLoaded = SetDataNotYetLoaded = true;
       }
 
       [NotifyPropertyChangedInvocator]

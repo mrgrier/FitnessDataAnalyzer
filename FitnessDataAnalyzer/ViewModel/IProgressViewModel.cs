@@ -17,5 +17,7 @@ namespace FitnessDataAnalyzer.ViewModel
       bool WatchDataNotYetLoaded { get; set; }
 
       bool SetDataNotYetLoaded { get; set; }
+
+      void Clear();
    }
 }

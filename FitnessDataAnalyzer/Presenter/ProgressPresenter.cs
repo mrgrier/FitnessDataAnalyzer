@@ -35,6 +35,7 @@ namespace FitnessDataAnalyzer.Presenter
          {
             m_view.GetLoadWatchDataClicks().Subscribe(LoadWatchData),
             m_view.GetLoadFitnotesDataClicks().Subscribe(LoadExerciseData),
+            m_view.GetClearLoadedDataClicks().Subscribe(_ => HandleClearClicks()),
             m_view.GetTreeNodeSelectionChanges().Subscribe(HandleNodeSelection)
          };
       }
@@ -48,6 +49,8 @@ namespace FitnessDataAnalyzer.Presenter
 
          try
          {
+            m_view.SetStatusStripText(LOADING);
+
             using(var reader = new StreamReader(File.OpenRead(filePath)))
             {
                if(!reader.EndOfStream)
@@ -69,7 +72,7 @@ namespace FitnessDataAnalyzer.Presenter
             }
 
             stopwatch.Stop();
-            m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
+            m_view.SetStatusStripText($"{numberOfPoints} watch data points loaded in " +
                                       $"{stopwatch.ElapsedMilliseconds} milliseconds");
 
             m_viewModel.WatchDataNotYetLoaded = false;
@@ -82,7 +85,8 @@ namespace FitnessDataAnalyzer.Presenter
             MessageBox.Show(e.Message, FILE_READ_ERROR);
          }
 
-         m_view.RefreshDataPoints();
+         m_view.PlotDataPoints(m_viewModel.HighActivityDataPoints, 
+                               m_viewModel.LowActivityDataPoints);
       }
 
       private static IDataPoint CreateDataPoint(IReadOnlyList<string> values)
@@ -129,6 +133,8 @@ namespace FitnessDataAnalyzer.Presenter
 
          try
          {
+            m_view.SetStatusStripText(LOADING);
+
             using(var reader = new StreamReader(File.OpenRead(filePath)))
             {
                if(!reader.EndOfStream)
@@ -147,7 +153,7 @@ namespace FitnessDataAnalyzer.Presenter
             }
 
             stopwatch.Stop();
-            m_view.SetStatusStripText($"{numberOfPoints} data points loaded in " +
+            m_view.SetStatusStripText($"{numberOfPoints} FitNotes data points loaded in " +
                                       $"{stopwatch.ElapsedMilliseconds} milliseconds");
 
             m_viewModel.SetDataNotYetLoaded = false;
@@ -234,9 +240,21 @@ namespace FitnessDataAnalyzer.Presenter
          throw new Exception("Distance unit not recognized");
       }
 
+      private void HandleClearClicks()
+      {
+         m_viewModel.Clear();
+         m_view.Clear();
+         m_view.SetStatusStripText("Data cleared.");
+      }
+
       private void HandleNodeSelection(TreeNode node)
       {
-         //throw new NotImplementedException();
+         var exercise = node.Tag as IExercise;
+
+         if(exercise == null)
+            return;
+
+
       }
 
       private readonly IProgressView m_view;
@@ -246,5 +264,6 @@ namespace FitnessDataAnalyzer.Presenter
       private readonly int m_highHRThreshold;
 
       private const string FILE_READ_ERROR = "Error reading file";
+      private const string LOADING = "Loading...";
    }
 }

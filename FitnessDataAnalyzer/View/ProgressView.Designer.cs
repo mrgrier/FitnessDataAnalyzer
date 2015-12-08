@@ -41,6 +41,7 @@
          this.ExerciseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+         this.ClearButton = new System.Windows.Forms.Button();
          this.ViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.mainTLP.SuspendLayout();
          this.buttonTLP.SuspendLayout();
@@ -68,12 +69,14 @@
          // 
          // buttonTLP
          // 
-         this.buttonTLP.ColumnCount = 2;
+         this.buttonTLP.ColumnCount = 3;
          this.mainTLP.SetColumnSpan(this.buttonTLP, 2);
+         this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
          this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
          this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
          this.buttonTLP.Controls.Add(this.btnLoadWatchData, 0, 0);
          this.buttonTLP.Controls.Add(this.btnLoadFitnotesData, 1, 0);
+         this.buttonTLP.Controls.Add(this.ClearButton, 2, 0);
          this.buttonTLP.Dock = System.Windows.Forms.DockStyle.Fill;
          this.buttonTLP.Location = new System.Drawing.Point(3, 3);
          this.buttonTLP.Name = "buttonTLP";
@@ -151,6 +154,15 @@
          this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
          // 
+         // ClearButton
+         // 
+         this.ClearButton.Location = new System.Drawing.Point(255, 3);
+         this.ClearButton.Name = "ClearButton";
+         this.ClearButton.Size = new System.Drawing.Size(110, 23);
+         this.ClearButton.TabIndex = 2;
+         this.ClearButton.Text = "Clear Loaded Data";
+         this.ClearButton.UseVisualStyleBackColor = true;
+         // 
          // ViewModelBindingSource
          // 
          this.ViewModelBindingSource.DataSource = typeof(FitnessDataAnalyzer.ViewModel.IProgressViewModel);
@@ -187,6 +199,7 @@
       private System.Windows.Forms.StatusStrip statusStrip1;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
       private System.Windows.Forms.BindingSource ViewModelBindingSource;
+      private System.Windows.Forms.Button ClearButton;
    }
 }
 
