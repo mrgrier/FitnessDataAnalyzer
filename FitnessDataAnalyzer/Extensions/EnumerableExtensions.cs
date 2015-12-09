@@ -30,6 +30,11 @@ namespace FitnessDataAnalyzer.Extensions
       public static IEnumerable<IDataPoint> Smooth(this IEnumerable<IDataPoint> x,
                                                    int chunkSize)
       {
+         if(chunkSize < 1)
+         {
+            return new List<IDataPoint>();
+         }
+
          var result = new List<IDataPoint>();
          var chunked = 0;
 
