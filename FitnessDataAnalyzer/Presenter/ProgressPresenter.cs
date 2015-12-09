@@ -174,6 +174,10 @@ namespace FitnessDataAnalyzer.Presenter
 
       private void LoadSet(IReadOnlyList<string> values, List<TreeNode> treeNodes)
       {
+         if(string.IsNullOrEmpty(values[3]) || string.IsNullOrEmpty(values[4]))
+            return;
+
+         // this is a weighted exercise
          ICategory category;
          if(!m_viewModel.Categories.TryGetValue(values[2], out category))
          {
@@ -200,31 +204,11 @@ namespace FitnessDataAnalyzer.Presenter
 
          var date = DateTime.Parse(values[0]);
 
-         if(!string.IsNullOrEmpty(values[5]) &&
-            !string.IsNullOrEmpty(values[6]) &&
-            !string.IsNullOrEmpty(values[7]))
-         {
-            // this is a distance exercise
-            var distance = double.Parse(values[5]);
-            var distanceUnit = ParseDistanceUnit(values[6]);
-            var duration = TimeSpan.Parse(values[7]);
+         var weight = double.Parse(values[3]);
+         var reps = int.Parse(values[4]);
 
-            var set = new DistanceSet(date, distance, distanceUnit, duration);
-            exercise.Sets[set.Date] = set;
-         }
-         else if(!string.IsNullOrEmpty(values[3]) && !string.IsNullOrEmpty(values[4]))
-         {
-            // this is a weighted exercise
-            var weight = double.Parse(values[3]);
-            var reps = int.Parse(values[4]);
-
-            var set = new WeightedSet(date, weight, reps);
-            exercise.Sets[set.Date] = set;
-         }
-         else
-         {
-            throw new Exception("Entry did not match format for distance nor weighted exercise.");
-         }
+         var set = new WeightedSet(date, weight, reps);
+         exercise.Sets[set.Date] = set;
       }
 
       private DistanceUnit ParseDistanceUnit(string unit)
