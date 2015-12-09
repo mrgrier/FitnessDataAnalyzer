@@ -145,6 +145,7 @@
          // 
          // ExerciseChart
          // 
+         chartArea1.AxisY.Title = "Heart Rate (bpm) / Weight (lbs)";
          chartArea1.Name = "ChartArea1";
          this.ExerciseChart.ChartAreas.Add(chartArea1);
          this.ExerciseChart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -155,19 +156,19 @@
          series1.ChartArea = "ChartArea1";
          series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
          series1.Legend = "Legend1";
-         series1.Name = "HighActivitySeries";
+         series1.Name = "HighActivityHeartRate";
          series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
          series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          series2.ChartArea = "ChartArea1";
          series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
          series2.Legend = "Legend1";
-         series2.Name = "LowActivitySeries";
+         series2.Name = "LowActivityHeartRate";
          series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
          series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          series3.ChartArea = "ChartArea1";
          series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
          series3.Legend = "Legend1";
-         series3.Name = "ExerciseSeries";
+         series3.Name = "ExerciseWeight";
          series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
          series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          this.ExerciseChart.Series.Add(series1);
