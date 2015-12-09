@@ -33,18 +33,24 @@
          System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
          System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
          System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+         System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
          this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
          this.buttonTLP = new System.Windows.Forms.TableLayoutPanel();
          this.btnLoadWatchData = new System.Windows.Forms.Button();
          this.btnLoadFitnotesData = new System.Windows.Forms.Button();
+         this.ClearButton = new System.Windows.Forms.Button();
+         this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.TreeView = new System.Windows.Forms.TreeView();
          this.ExerciseChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-         this.ClearButton = new System.Windows.Forms.Button();
          this.ViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.mainTLP.SuspendLayout();
          this.buttonTLP.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+         this.splitContainer1.Panel1.SuspendLayout();
+         this.splitContainer1.Panel2.SuspendLayout();
+         this.splitContainer1.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).BeginInit();
          this.statusStrip1.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.ViewModelBindingSource)).BeginInit();
@@ -52,12 +58,11 @@
          // 
          // mainTLP
          // 
-         this.mainTLP.ColumnCount = 2;
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
+         this.mainTLP.ColumnCount = 1;
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+         this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
          this.mainTLP.Controls.Add(this.buttonTLP, 0, 0);
-         this.mainTLP.Controls.Add(this.TreeView, 0, 1);
-         this.mainTLP.Controls.Add(this.ExerciseChart, 1, 1);
+         this.mainTLP.Controls.Add(this.splitContainer1, 0, 1);
          this.mainTLP.Dock = System.Windows.Forms.DockStyle.Fill;
          this.mainTLP.Location = new System.Drawing.Point(0, 0);
          this.mainTLP.Name = "mainTLP";
@@ -70,7 +75,6 @@
          // buttonTLP
          // 
          this.buttonTLP.ColumnCount = 3;
-         this.mainTLP.SetColumnSpan(this.buttonTLP, 2);
          this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
          this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
          this.buttonTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -105,13 +109,39 @@
          this.btnLoadFitnotesData.Text = "Load FitNotes Data...";
          this.btnLoadFitnotesData.UseVisualStyleBackColor = true;
          // 
+         // ClearButton
+         // 
+         this.ClearButton.Location = new System.Drawing.Point(255, 3);
+         this.ClearButton.Name = "ClearButton";
+         this.ClearButton.Size = new System.Drawing.Size(110, 23);
+         this.ClearButton.TabIndex = 2;
+         this.ClearButton.Text = "Clear Loaded Data";
+         this.ClearButton.UseVisualStyleBackColor = true;
+         // 
+         // splitContainer1
+         // 
+         this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.splitContainer1.Location = new System.Drawing.Point(3, 36);
+         this.splitContainer1.Name = "splitContainer1";
+         // 
+         // splitContainer1.Panel1
+         // 
+         this.splitContainer1.Panel1.Controls.Add(this.TreeView);
+         // 
+         // splitContainer1.Panel2
+         // 
+         this.splitContainer1.Panel2.Controls.Add(this.ExerciseChart);
+         this.splitContainer1.Size = new System.Drawing.Size(1478, 722);
+         this.splitContainer1.SplitterDistance = 250;
+         this.splitContainer1.TabIndex = 4;
+         // 
          // TreeView
          // 
          this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.TreeView.Location = new System.Drawing.Point(3, 36);
+         this.TreeView.Location = new System.Drawing.Point(0, 0);
          this.TreeView.Name = "TreeView";
-         this.TreeView.Size = new System.Drawing.Size(216, 722);
-         this.TreeView.TabIndex = 2;
+         this.TreeView.Size = new System.Drawing.Size(250, 722);
+         this.TreeView.TabIndex = 3;
          // 
          // ExerciseChart
          // 
@@ -120,23 +150,31 @@
          this.ExerciseChart.Dock = System.Windows.Forms.DockStyle.Fill;
          legend1.Name = "Legend1";
          this.ExerciseChart.Legends.Add(legend1);
-         this.ExerciseChart.Location = new System.Drawing.Point(225, 36);
+         this.ExerciseChart.Location = new System.Drawing.Point(0, 0);
          this.ExerciseChart.Name = "ExerciseChart";
          series1.ChartArea = "ChartArea1";
          series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
          series1.Legend = "Legend1";
          series1.Name = "HighActivitySeries";
          series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          series2.ChartArea = "ChartArea1";
          series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
          series2.Legend = "Legend1";
          series2.Name = "LowActivitySeries";
          series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
          series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+         series3.ChartArea = "ChartArea1";
+         series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+         series3.Legend = "Legend1";
+         series3.Name = "ExerciseSeries";
+         series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+         series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
          this.ExerciseChart.Series.Add(series1);
          this.ExerciseChart.Series.Add(series2);
-         this.ExerciseChart.Size = new System.Drawing.Size(1256, 722);
-         this.ExerciseChart.TabIndex = 3;
+         this.ExerciseChart.Series.Add(series3);
+         this.ExerciseChart.Size = new System.Drawing.Size(1224, 722);
+         this.ExerciseChart.TabIndex = 4;
          this.ExerciseChart.Text = "chart1";
          // 
          // statusStrip1
@@ -154,15 +192,6 @@
          this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
          // 
-         // ClearButton
-         // 
-         this.ClearButton.Location = new System.Drawing.Point(255, 3);
-         this.ClearButton.Name = "ClearButton";
-         this.ClearButton.Size = new System.Drawing.Size(110, 23);
-         this.ClearButton.TabIndex = 2;
-         this.ClearButton.Text = "Clear Loaded Data";
-         this.ClearButton.UseVisualStyleBackColor = true;
-         // 
          // ViewModelBindingSource
          // 
          this.ViewModelBindingSource.DataSource = typeof(FitnessDataAnalyzer.ViewModel.IProgressViewModel);
@@ -179,6 +208,10 @@
          this.Text = "Progress";
          this.mainTLP.ResumeLayout(false);
          this.buttonTLP.ResumeLayout(false);
+         this.splitContainer1.Panel1.ResumeLayout(false);
+         this.splitContainer1.Panel2.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+         this.splitContainer1.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.ExerciseChart)).EndInit();
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
@@ -194,12 +227,13 @@
       private System.Windows.Forms.TableLayoutPanel buttonTLP;
       private System.Windows.Forms.Button btnLoadWatchData;
       private System.Windows.Forms.Button btnLoadFitnotesData;
-      private System.Windows.Forms.TreeView TreeView;
-      private System.Windows.Forms.DataVisualization.Charting.Chart ExerciseChart;
       private System.Windows.Forms.StatusStrip statusStrip1;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
       private System.Windows.Forms.BindingSource ViewModelBindingSource;
       private System.Windows.Forms.Button ClearButton;
+      private System.Windows.Forms.SplitContainer splitContainer1;
+      private System.Windows.Forms.TreeView TreeView;
+      private System.Windows.Forms.DataVisualization.Charting.Chart ExerciseChart;
    }
 }
 

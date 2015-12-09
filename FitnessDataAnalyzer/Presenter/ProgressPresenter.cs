@@ -85,7 +85,7 @@ namespace FitnessDataAnalyzer.Presenter
             MessageBox.Show(e.Message, FILE_READ_ERROR);
          }
 
-         m_view.PlotDataPoints(m_viewModel.HighActivityDataPoints, 
+         m_view.PlotDataPoints(m_viewModel.HighActivityDataPoints,
                                m_viewModel.LowActivityDataPoints);
       }
 
@@ -179,7 +179,7 @@ namespace FitnessDataAnalyzer.Presenter
          {
             category = new Category(values[2]);
             m_viewModel.Categories[category.Name] = category;
-            treeNodes.Add(new TreeNode(category.Name) {Tag = category});
+            treeNodes.Add(new TreeNode(category.Name) { Tag = category });
          }
 
          IExercise exercise;
@@ -195,9 +195,9 @@ namespace FitnessDataAnalyzer.Presenter
                   $"could not find category parent node for exercise: {exercise.Name}");
             }
 
-            parentNode.Nodes.Add(new TreeNode(exercise.Name) {Tag = exercise});
+            parentNode.Nodes.Add(new TreeNode(exercise.Name) { Tag = exercise });
          }
-         
+
          var date = DateTime.Parse(values[0]);
 
          if(!string.IsNullOrEmpty(values[5]) &&
@@ -209,7 +209,7 @@ namespace FitnessDataAnalyzer.Presenter
             var distanceUnit = ParseDistanceUnit(values[6]);
             var duration = TimeSpan.Parse(values[7]);
 
-            var set = new DistanceSet(exercise, date, distance, distanceUnit, duration);
+            var set = new DistanceSet(date, distance, distanceUnit, duration);
             exercise.Sets[set.Date] = set;
          }
          else if(!string.IsNullOrEmpty(values[3]) && !string.IsNullOrEmpty(values[4]))
@@ -218,7 +218,7 @@ namespace FitnessDataAnalyzer.Presenter
             var weight = double.Parse(values[3]);
             var reps = int.Parse(values[4]);
 
-            var set = new WeightedSet(exercise, date, weight, reps);
+            var set = new WeightedSet(date, weight, reps);
             exercise.Sets[set.Date] = set;
          }
          else
@@ -254,7 +254,7 @@ namespace FitnessDataAnalyzer.Presenter
          if(exercise == null)
             return;
 
-
+         m_view.PlotExercisePoints(exercise.Name, exercise.Sets);
       }
 
       private readonly IProgressView m_view;

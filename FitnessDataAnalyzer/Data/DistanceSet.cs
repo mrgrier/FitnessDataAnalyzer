@@ -5,20 +5,17 @@ namespace FitnessDataAnalyzer.Data
 {
    public class DistanceSet : IDistanceSet
    {
-      public DistanceSet(IExercise exercise,
-                         DateTime date,
+      public DistanceSet(DateTime date,
                          double distance, 
                          DistanceUnit unit, 
                          TimeSpan duration)
       {
-         Exercise = exercise;
          Date = date;
          Distance = distance;
          Unit = unit;
          Duration = duration;
       }
 
-      public IExercise Exercise { get; }
       public DateTime Date { get; }
       public double Distance { get; }
       public DistanceUnit Unit { get; }

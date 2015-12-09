@@ -7,7 +7,7 @@ using FitnessDataAnalyzer.Data.Interfaces;
 
 namespace FitnessDataAnalyzer.ViewModel
 {
-   public class ProgressViewModel : IProgressViewModel, INotifyPropertyChanged
+   public sealed class ProgressViewModel : IProgressViewModel, INotifyPropertyChanged
    {
       public ProgressViewModel()
       {
@@ -20,13 +20,13 @@ namespace FitnessDataAnalyzer.ViewModel
          m_setDataLoaded = true;
       }
 
-      public IDictionary<DateTime, IDataPoint> DataPoints { get; private set; }
+      public IDictionary<DateTime, IDataPoint> DataPoints { get; }
 
-      public IDictionary<DateTime, IDataPoint> LowActivityDataPoints { get; private set; }
+      public IDictionary<DateTime, IDataPoint> LowActivityDataPoints { get; }
 
-      public IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; private set; }
+      public IDictionary<DateTime, IDataPoint> HighActivityDataPoints { get; }
 
-      public IDictionary<string, ICategory> Categories { get; private set; }
+      public IDictionary<string, ICategory> Categories { get; }
 
       public bool WatchDataNotYetLoaded
       {
@@ -63,7 +63,7 @@ namespace FitnessDataAnalyzer.ViewModel
       }
 
       [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      private void OnPropertyChanged([CallerMemberName] string propertyName = null)
       {
          PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }

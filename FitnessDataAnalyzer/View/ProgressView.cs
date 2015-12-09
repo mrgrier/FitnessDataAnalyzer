@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using FitnessDataAnalyzer.Data.Interfaces;
 using FitnessDataAnalyzer.Extensions;
 using FitnessDataAnalyzer.Presenter;
@@ -75,6 +76,21 @@ namespace FitnessDataAnalyzer.View
          }
       }
 
+      public void PlotExercisePoints(string exerciseName, IDictionary<DateTime, ISet> sets)
+      {
+         ExerciseChart.Series[2].Points.Clear();
+
+         ExerciseChart.Series[2].Name = exerciseName;
+
+         foreach(var weightedSet in sets
+                                    .OrderBy(x => x.Key)
+                                    .Select(kv => kv.Value)
+                                    .OfType<IWeightedSet>().Select(set => set))
+         {
+            ExerciseChart.Series[2].Points.AddXY(weightedSet.Date, weightedSet.Weight);
+         }
+      }
+
       public void BuildTree(IEnumerable<TreeNode> nodes)
       {
          TreeView.Nodes.Clear();
@@ -138,6 +154,6 @@ namespace FitnessDataAnalyzer.View
       private IProgressViewModel m_viewModel;
 
       private const string CSV_FILTER = "Comma Separated Values | *.csv";
-      private const int DATA_POINT_MAX_COUNT = 20;
+      private const int DATA_POINT_MAX_COUNT = 30;
    }
 }

@@ -5,18 +5,15 @@ namespace FitnessDataAnalyzer.Data
 {
    public class WeightedSet : IWeightedSet
    {
-      public WeightedSet(IExercise exercise,
-                         DateTime date, 
+      public WeightedSet(DateTime date, 
                          double weight, 
                          int reps)
       {
-         Exercise = exercise;
          Date = date;
          Weight = weight;
          Reps = reps;
       }
       
-      public IExercise Exercise { get; }
       public DateTime Date { get; }
       public double Weight { get; }
       public int Reps { get; }

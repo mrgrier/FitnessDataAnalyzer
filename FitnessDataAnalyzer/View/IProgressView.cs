@@ -16,6 +16,8 @@ namespace FitnessDataAnalyzer.View
       void PlotDataPoints(IDictionary<DateTime, IDataPoint> highActivityDataPoints,
                           IDictionary<DateTime, IDataPoint> lowActivityDataPoints);
 
+      void PlotExercisePoints(string exerciseName, IDictionary<DateTime, ISet> sets);
+
       void BuildTree(IEnumerable<TreeNode> nodes);
 
       IObservable<string> GetLoadWatchDataClicks();
